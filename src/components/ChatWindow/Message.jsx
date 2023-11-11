@@ -6,6 +6,7 @@ const Message = ({
   timestamp,
   content,
   isSending,
+  attachment = null,
 }) => {
   const dateObject = new Date(timestamp);
 
@@ -38,6 +39,7 @@ const Message = ({
       }`}
     >
       <div className="flex flex-col relative">
+        {attachment && <img src={attachment.url} className="mb-2" />}
         <span>{content}</span>
         <span
           className={`${

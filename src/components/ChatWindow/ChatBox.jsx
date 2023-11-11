@@ -1,7 +1,7 @@
 import DateSeparator from "./DateSeparator";
 import Message from "./Message";
 import React from "react";
-
+import pic from "../../assets/img/pexels-carol-wd-3454298.jpg";
 const ChatBox = () => {
   const messages = [
     {
@@ -92,6 +92,16 @@ const ChatBox = () => {
       content: "Sounds like a plan! I'll check the showtimes and let you know.",
       isSending: true,
     },
+    {
+      id: 15,
+      variant: "left",
+      timestamp: "2023-11-11T09:00:00",
+      content: "She is cute, isn't she?",
+      attachment: {
+        type: "image",
+        url: pic,
+      },
+    },
   ];
 
   const renderMessagesWithSeparators = () => {
@@ -132,7 +142,11 @@ const ChatBox = () => {
   };
 
   return (
-    <div className="p-4 grow-1 flex flex-col pb-20 w-full overflow-y-scroll">
+    <div
+      className={`p-4 grow-1 flex flex-col ${
+        false ? "pb-60" : "pb-20"
+      }  w-full overflow-y-scroll`}
+    >
       {renderMessagesWithSeparators()}
     </div>
   );

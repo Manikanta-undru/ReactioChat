@@ -1,3 +1,4 @@
+import { AiOutlineCloseCircle } from "react-icons/ai";
 import { BsPaperclip } from "react-icons/bs";
 import { PiPaperPlaneRightFill } from "react-icons/pi";
 import { useState } from "react";
@@ -21,18 +22,41 @@ const MessageInput = () => {
   const handleRemoveAttachment = () => {
     setAttachment(null);
   };
+  const renderAttachmentPreview = () => {
+    if (!attachment) return null;
 
+    const isImage = attachment.type.startsWith("image");
+    const isPdf = attachment.type === "application/pdf";
+
+    if (isImage) {
+      return (
+        <div className=" w-24 max-h-[200px] ">
+          <img
+            src={URL.createObjectURL(attachment)}
+            alt="Attachment Preview"
+            className="max-w-full h-auto"
+          />
+        </div>
+      );
+    } else if (isPdf) {
+      // You can replace the following line with a PDF file icon component
+      return <div className="pdf-icon">PDF Icon</div>;
+    } else {
+      // For other file types, you can add more conditions and icons as needed
+      return <div className="generic-file-icon">File Icon</div>;
+    }
+  };
   return (
     <div className="w-full px-4 py-2 border-t bg-white">
       {attachment && (
-        <div className="mb-2">
-          <span className="text-gray-600">Attachment:</span> {attachment.name}{" "}
+        <div className="mb-2 relative">
           <button
-            className="text-red-500 hover:text-red-700"
+            className="text-white absolute -top-2 right-0 bg-red-500 rounded-full hover:text-red-700"
             onClick={handleRemoveAttachment}
           >
-            Remove
+            <AiOutlineCloseCircle />
           </button>
+          <div className="mt-2">{renderAttachmentPreview()}</div>
         </div>
       )}
 
